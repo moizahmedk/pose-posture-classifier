@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Models, data and outputs (never commit weights or personal images)
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.onnx
+data/
+outputs/
+work_dirs/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

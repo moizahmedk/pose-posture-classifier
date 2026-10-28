@@ -1,0 +1,9 @@
+# OpenMMLab inference stack. Install AFTER PyTorch, with `mim` so that the
+# mmcv wheel matches your torch/CUDA build:
+#   pip install -U openmim && mim install -r requirements-mmlab.txt
+# Tested combination target: Python 3.10, torch 2.1.x, CUDA 12.1 or CPU.
+numpy<2.0            # mmcv 2.1 wheels are built against NumPy 1.x
+mmengine>=0.10.0,<1.0.0
+mmcv>=2.0.1,<2.2.0
+mmdet>=3.0.0,<3.3.0  # range declared by MMPose 1.3
+mmpose>=1.1.0,<1.4.0

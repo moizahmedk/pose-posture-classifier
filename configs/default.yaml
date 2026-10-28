@@ -1,0 +1,27 @@
+# Default configuration for posture-classify.
+# Relative paths are resolved from the directory you run the command in
+# (normally the repository root). Fetch the files with:
+#   bash scripts/download_models.sh
+
+device: auto  # "auto" -> cuda:0 if available, else cpu
+
+detector:  # Faster R-CNN R50-FPN 1x, COCO (MMDetection 3.x)
+  config: checkpoints/faster-rcnn_r50_fpn_1x_coco.py
+  checkpoint: checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
+  person_label: 0        # MMDetection 3.x COCO labels are 0-based
+  score_threshold: 0.3
+  nms_threshold: 0.3
+
+pose_model:  # SimpleBaseline ResNet-50, COCO 256x192 (MMPose 1.x)
+  config: checkpoints/td-hm_res50_8xb64-210e_coco-256x192.py
+  checkpoint: checkpoints/td-hm_res50_8xb64-210e_coco-256x192-04af38ce_20220923.pth
+
+posture:
+  standing_min_angle: 165.0   # shoulder-hip-knee angle (deg) above which "Standing"
+  min_keypoint_score: 0.3     # below this, a keypoint is not trusted -> "Unknown"
+  side: auto                  # auto | right | left  ("right" matches the original notebook)
+
+visualization:
+  keypoint_score_threshold: 0.3
+  line_thickness: 2
+  font_scale: 0.7

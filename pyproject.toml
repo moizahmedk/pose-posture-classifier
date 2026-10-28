@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "posture-classifier"
+version = "0.1.0"
+description = "Rule-based standing / sitting / lying classification on top of MMDetection + MMPose 2D human pose estimation."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Moiz Khan" }]
+keywords = ["pose-estimation", "computer-vision", "mmpose", "mmdetection", "posture"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+# Lightweight core: everything needed for the geometry, classification,
+# visualization and tests. The deep-learning stack (torch, mmcv, mmdet,
+# mmpose) is installed separately because mmcv must match the local
+# torch/CUDA build -- see README "Installation".
+dependencies = [
+    "numpy>=1.21",
+    "opencv-python>=4.5",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "ruff>=0.5"]
+
+[project.scripts]
+posture-classify = "posture_classifier.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 99
+target-version = "py39"
+src = ["src", "tests"]
+extend-include = ["*.ipynb"]
+extend-exclude = ["notebooks/original_colab_notebook.ipynb"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "D",   # pydocstyle
+]
+ignore = ["D105", "D107"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"notebooks/*" = ["D", "E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
